@@ -2,6 +2,14 @@
 
 <h1>Movies</h1>
 
+
+<%= link_to 'Sort by Date (Newest first)', movies_path(sort: 'date_desc') %>
+<%= link_to 'Sort by Date (Oldest first)', movies_path(sort: 'date_asc') %>
+<%= form_tag movies_path, method: :get do %>
+  <%= select_tag :rating, options_for_select(Movie.distinct.order(:rating).pluck(:rating)), include_blank: true %>
+  <%= submit_tag 'Filter' %>
+<% end %>
+
 <div id="movies">
   <% @movies.each do |movie| %>
     <%= render movie %>
